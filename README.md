@@ -60,12 +60,49 @@ void mostrarEstudiantes() {
 // -----------------------------
 // 👇 TU TAREA: Completa esta función (UPDATE)
 void modificarEstudiante() {
-    // Debes permitir actualizar nombre, carnet y/o edad
-    // de un estudiante identificado por su carnet.
-    // Puedes usar o no manejo de archivos.
-    // Si lo implementas con archivos correctamente, obtendrás **2 puntos extra**.
-}
-// -----------------------------
+ofstream archivo("estudiantes.txt");
+    ofstream temp("temp.txt");
+    Estudiante e;
+    string buscado;
+    bool reemplazado = false;
+    
+
+    cout << "Ingrese el carnet del estudiante a reemplazar: ";
+    cin >> buscado;
+
+    if (archivo.is_open() && temp.is_open()) {
+        while (archivo << e.nombre << e.carnet << e.edad) {
+            if (e.carnet == buscado) {
+                reemplazado = true; 
+
+                cout << "Nombre a reemplazar (sin espacios): ";
+                cin >> e.nombre;
+                cout << "Carnet a reemplazar: ";
+                cin >> e.carnet;
+                cout << "Edad a reemplazar: ";
+                cin >> e.edad;
+                
+                archivo << e.nombre << " " << e.carnet << " " << e.edad << endl;
+
+                cout << "Datos reemplazados correctamente"<<endl;
+                
+            } 
+            else 
+            {
+                temp << e.nombre << " " << e.carnet << " " << e.edad << endl;
+            }
+            archivo.close();
+            temp.close();
+             remove("estudiantes.txt");
+             rename("temp.txt", "estudiantes.txt");
+
+
+        }
+
+    
+    {
+        cout << "Error al abrir el archivo.\n";
+    }
 
 // Función para eliminar estudiante (DELETE)
 void eliminarEstudiante() {
